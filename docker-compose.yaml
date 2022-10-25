@@ -7,7 +7,7 @@ services:
     hostname: postgres
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=p0stgrespwd
       - POSTGRES_DB=tripdb
     logging:
       options:
