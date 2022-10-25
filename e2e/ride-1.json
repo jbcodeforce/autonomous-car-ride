@@ -1,0 +1,11 @@
+{
+    "isAStart": true,
+    "eventTime": "2022-10-25T12:00:01.15Z",
+    "startLon": -122.38175,
+    "startLat": 37.816807,
+    "endLon": -122.42031,
+    "endLat": 37.775986,
+    "passengerCnt": 3,
+    "carId": 2022000105,
+    "eventTimeMillis": 1577880020000
+}

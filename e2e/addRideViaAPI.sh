@@ -1,0 +1,1 @@
+curl -X POST http://localhost:8080/api/v1/carrides -H 'accept: application/json' -H 'Content-Type: application/json' -d@./ride-1.json
