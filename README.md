@@ -4,15 +4,17 @@ This project uses Quarkus, the Supersonic Subatomic Java Framework and a set of 
 
 ## What the app does
 
-Expose CRUD for CarRide and TripFare Entities.
+Expose CRUD for CarRide and TripFare Entities to Postgresql. It supports also a control interface to create n records randomly. This is a command for demonstration purpose.
 
 ## Running the application in dev mode
 
-You can run your application in dev mode that enables live coding using:
+* First start Postgresql locally with `docker compose up -d`
+* Run the application in dev mode:
 
 ```shell script
 quarkus dev
 ```
+> API is at http://localhost:8080/q/swagger-ui/
 
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
@@ -50,10 +52,3 @@ You can then execute your native executable with: `./target/autonomous-car-ride-
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
 
-## Provided Code
-
-### RESTEasy Reactive
-
-Easily start your Reactive RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)

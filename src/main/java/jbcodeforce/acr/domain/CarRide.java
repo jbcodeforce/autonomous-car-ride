@@ -34,8 +34,8 @@ public class CarRide {
 
     public CarRide(long rideId, boolean isAStart) {
         DataGenerator g = new DataGenerator(rideId);
-
-        this.rideId = rideId;
+        if (rideId != -1)
+            this.rideId = rideId;
         this.isAStart = isAStart;
         this.eventTime = isAStart ? g.startTime() : g.endTime();
         this.startLon = g.startLon();
