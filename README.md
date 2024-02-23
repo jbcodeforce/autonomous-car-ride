@@ -1,12 +1,18 @@
-# autonomous-car-ride Project
+# Autonomous-car-ride manager microservice
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework and a set of AWS services like Aurora for Postgrsql.
+This project illustrates event sourcing and CQRS patterns implementation using Java and Quarkus, the "Supersonic Subatomic Java Framework".
+
+it can run locally using Docker compose and being deployed on AWS EKS or ECS Fargate.
 
 ## What the app does
 
-Expose CRUD for CarRide and TripFare Entities to Postgresql. It supports also a control interface to create n records randomly. This is a command for demonstration purpose.
+Expose CRUD for CarRide and TripFare Entities with Postgresql as database. It supports also a control interface to create n records randomly (this is a command to be used for demonstration purpose).
 
-## Running the application in dev mode
+## Development time
+
+The following notes if for development activities
+
+### Running the application in dev mode
 
 * First start Postgresql locally with `docker compose up -d`
 * Run the application in dev mode:
@@ -14,41 +20,35 @@ Expose CRUD for CarRide and TripFare Entities to Postgresql. It supports also a 
 ```shell script
 quarkus dev
 ```
-> API is at http://localhost:8080/q/swagger-ui/
+
+* APIs are accessible at http://localhost:8080/q/swagger-ui/
 
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
-## Packaging and running the application
 
-The application can be packaged using:
+### Packaging and running the application
+
+The application can be packaged into a docker image using:
+
 ```shell script
-./mvnw package
-```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
+./scripts/buildAll.sh
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+## Running a local end to end demonstration
 
-## Creating a native executable
 
-You can create a native executable using: 
-```shell script
-./mvnw package -Pnative
+## Running with RDS Postgresql
+
+* We can create the RDS postgreSQL engine DB with the aws CLI:
+
+```sh
+./scripts/createRDS-postgres.sh
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Pnative -Dquarkus.native.container-build=true
+* Change the property with the URL of the server:
+
+```
+quarkus.datasource.jdbc.url=jdbc:postgresql://tripdb.<>.us-west-2.rds.amazonaws.com:5432/postgres
 ```
 
-You can then execute your native executable with: `./target/autonomous-car-ride-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
-
+* Starting in dev mode, the SQL schema will be created automatically. 

@@ -8,9 +8,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.inject.Inject;
 
+import acme.acr.domain.CarRide;
+import acme.acr.infra.CarRideRepository;
 import io.quarkus.test.junit.QuarkusTest;
-import jbcodeforce.acr.domain.CarRide;
-import jbcodeforce.acr.infra.CarRideRepository;
 
 @QuarkusTest
 public class TestCarRide {

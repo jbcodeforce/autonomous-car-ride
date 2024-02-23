@@ -1,35 +1,46 @@
-package jbcodeforce.acr.domain;
+package acme.acr.domain;
 
 import java.time.Instant;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import acme.acr.infra.DataGenerator;
+import acme.acr.infra.GeoLocationUtils;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 
-import io.vertx.codegen.annotations.Nullable;
-import jbcodeforce.acr.infra.DataGenerator;
-import jbcodeforce.acr.infra.GeoLocationUtils;
 
 /**
  * CarRide represents an autonomous car ride done by a customer from starting point to destination 
  */
 @Entity
-public class CarRide {
-    @Id @GeneratedValue public long rideId;
+public class CarRide extends PanacheEntityBase {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trip_seq")
+    @SequenceGenerator(name = "trip_seq", sequenceName = "trip_sequence")
+    public long rideId;
     public boolean isAStart;
     @Column(nullable = true)
-    public Instant eventTime;
+    public Instant tripStartTime;
+    @Column(nullable = true)
+    public Instant tripEndTime;
+    public String tripCompletionDate;
+    public String customerID;
     public float startLon = 0;
     public float startLat = 0;
     public float endLon = 0;
     public float endLat = 0 ;
     public short passengerCnt = 0;
     public long carId = 1;
+    public String tripStatus;
     
     public CarRide() {
-        this.eventTime = Instant.now();
+        this.tripStartTime = Instant.now();
     }
 
     public CarRide(long rideId, boolean isAStart) {
@@ -37,7 +48,7 @@ public class CarRide {
         if (rideId != -1)
             this.rideId = rideId;
         this.isAStart = isAStart;
-        this.eventTime = isAStart ? g.startTime() : g.endTime();
+        this.tripStartTime = isAStart ? g.startTime() : g.endTime();
         this.startLon = g.startLon();
         this.startLat = g.startLat();
         this.endLon = g.endLon();
@@ -53,7 +64,7 @@ public class CarRide {
                 + ","
                 + (isAStart ? "START" : "END")
                 + ","
-                + eventTime.toString()
+                + tripStartTime.toString()
                 + ","
                 + startLon
                 + ","
@@ -80,7 +91,7 @@ public class CarRide {
         if (other == null) {
             return 1;
         }
-        int compareTimes = this.eventTime.compareTo(other.eventTime);
+        int compareTimes = this.tripStartTime.compareTo(other.tripStartTime);
         if (compareTimes == 0) {
             if (this.isAStart == other.isAStart) {
                 return 0;
@@ -113,7 +124,7 @@ public class CarRide {
                 && Float.compare(carRide.endLat, endLat) == 0
                 && passengerCnt == carRide.passengerCnt
                 && carId == carRide.carId
-                && Objects.equals(eventTime, carRide.eventTime);
+                && Objects.equals(tripStartTime, carRide.tripStartTime);
     }
 
     @Override
@@ -121,7 +132,7 @@ public class CarRide {
         return Objects.hash(
                 rideId,
                 isAStart,
-                eventTime,
+                tripStartTime,
                 startLon,
                 startLat,
                 endLon,
@@ -141,6 +152,6 @@ public class CarRide {
     }
 
     public long getEventTimeMillis() {
-        return eventTime.toEpochMilli();
+        return tripStartTime.toEpochMilli();
     }
 }

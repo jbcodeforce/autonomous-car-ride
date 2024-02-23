@@ -1,12 +1,13 @@
-package jbcodeforce.acr.infra;
+package acme.acr.infra;
 
 import java.util.List;
+import java.util.UUID;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.transaction.Transactional;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 
+import acme.acr.domain.CarRide;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
-import jbcodeforce.acr.domain.CarRide;
 
 
 @ApplicationScoped

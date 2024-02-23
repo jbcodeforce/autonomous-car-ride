@@ -1,11 +1,11 @@
-package jbcodeforce.acr.infra;
+package acme.acr.infra;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class GeoLocationUtils {
-     // geo boundaries of the area of SF
+     // geo boundaries of the area of San Francisco
      public static final double LON_EAST = -122.396923;
      public static final double LON_WEST = -122.475242;
      public static final double LAT_NORTH = 37.806631;
@@ -34,7 +34,7 @@ public class GeoLocationUtils {
       * @param lat latitude of the location to check
       * @return true if the location is within the boundaries, otherwise false.
       */
-     public static boolean isInNYC(float lon, float lat) {
+     public static boolean isInSF(float lon, float lat) {
  
          return !(lon > LON_EAST || lon < LON_WEST) && !(lat > LAT_NORTH || lat < LAT_SOUTH);
      }
@@ -160,17 +160,17 @@ public class GeoLocationUtils {
       * Returns a random longitude within the SF area.
       *
       * @param rand A random number generator.
-      * @return A random longitude value within the NYC area.
+      * @return A random longitude value within the SF area.
       */
      public static float getRandomLongitude(Random rand) {
          return (float) (LON_EAST - (LON_WIDTH * rand.nextFloat()));
      }
  
      /**
-      * Returns a random latitude within the NYC area.
+      * Returns a random latitude within the SF area.
       *
       * @param rand A random number generator.
-      * @return A random latitude value within the NYC area.
+      * @return A random latitude value within the SF area.
       */
      public static float getRandomLatitude(Random rand) {
          return (float) (LAT_SOUTH + (LAT_HEIGHT * rand.nextFloat()));

@@ -1,8 +1,11 @@
-package jbcodeforce.acr.infra;
+package acme.acr.infra;
 
 import java.time.Instant;
 import java.util.Random;
 
+/**
+ * Data Generator for a CarRide for simulation.
+ */
 public class DataGenerator {
     private static final int SECONDS_BETWEEN_RIDES = 30;
     private static final int NUMBER_OF_VEHICLES = 200;
