@@ -5,9 +5,11 @@ This project illustrates the event sourcing and CQRS patterns implementation usi
 * [Event sourcing](https://jbcodeforce.github.io/eda-studies/patterns/event-sourcing/) pattern is about persisting the state of business entity as a sequence of state-changing events as immutable facts ordered over time.
 * [Command-Query Responsibility Segregation (CQRS)](https://jbcodeforce.github.io/eda-studies/patterns/cqrs/) is a pattern to separate operations for querying data with operations for updating data so that they may be handled independently, in separate applications or microservices.
 
-This project in the implementation of the Command part of an autonomous robot taxi ride share. The code can run locally using Docker compose and being deployed on AWS EKS or ECS Fargate.
+This project in the implementation of the Command part of an autonomous robot taxi ride share. The use case analysis and domain driven design is [documented here](https://jbcodeforce.github.io/eda-studies/solutions/autonomous-car/). The code can run locally using Docker compose and being deployed on AWS EKS or ECS Fargate.
 
-The demonstration also illustrates the needs to represent the data in different formats: Data Transfer Object at the API level, Business Entity for the persistence, and Event definition to share change states. 
+![](./docs/cqrs-es.drawio.png)
+
+The demonstration also illustrates the needs to represent the data in different formats: Data Transfer Object at the API level, Business Entity for the persistence, and Event definitions to share state changes. 
 
 ## What the app does
 
