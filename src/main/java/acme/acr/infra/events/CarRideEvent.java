@@ -8,6 +8,14 @@ public class CarRideEvent {
     public long timestampMillis;
     public String eventType;
     public String version;
-    public String status;
+    public String eventId;
     public CarRideVariablePayload  payload;
+
+    public CarRideEvent(String eventId) {
+        super();
+        this.eventId = eventId;
+        this.timestampMillis = System.currentTimeMillis();
+        this.version = DEFAULT_VERSION;
+        this.eventType = CAR_RIDE_CREATED_TYPE;
+    }
 }

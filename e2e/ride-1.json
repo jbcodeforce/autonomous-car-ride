@@ -6,6 +6,7 @@
     "endLon": -122.42031,
     "endLat": 37.775986,
     "passengerCnt": 3,
+    "customerID": "CUST_01",
     "carId": 2022000105,
     "eventTimeMillis": 1577880020000
 }

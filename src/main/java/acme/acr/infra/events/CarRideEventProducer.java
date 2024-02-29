@@ -15,29 +15,30 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class CarRideEventProducer {
     
-        Logger logger = Logger.getLogger(CarRideEventProducer.class.getName());
+    Logger logger = Logger.getLogger(CarRideEventProducer.class.getName());
     
     @Channel("car_rides")
 	public Emitter<CarRideEvent> eventProducer;
 
 
     public void sendCarRideCreatedEventFrom(CarRide carRide) {
-        CarRideEvent carRideEvent = createCarRideEvent(carRide);
-        carRideEvent.eventType = CarRideEvent.CAR_RIDE_CREATED_TYPE;
-        CarRideCreatedEvent oce = new CarRideCreatedEvent();
+        CarRideEvent carRideEvent = new CarRideEvent("RideID_"+carRide.rideId);
+        CarRideCreatedEvent oce = new CarRideCreatedEvent(carRide);
 		carRideEvent.payload = oce;
-        sendCarRideEvent(carRideEvent.eventID,carRideEvent);
+        sendCarRideEvent(carRideEvent.eventId,carRideEvent);
     }
 
-     private CarRideEvent createCarRideEvent(CarRide carRide) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createCarRideEvent'");
+    public void sendCarRideUpdateEventFrom(CarRide carRide) {
+        CarRideEvent carRideEvent = new CarRideEvent("RideID_"+carRide.rideId);
+        CarRideUpdatedEvent oce = new CarRideUpdatedEvent(carRide);
+		carRideEvent.payload = oce;
+        sendCarRideEvent(carRideEvent.eventId,carRideEvent);
     }
+     
 
     public void sendCarRideEvent(String key, CarRideEvent carRideEvent){
-        logger.info("key " + key + " car ride event " + carRideEvent.rideId; 
-                    + " etype:" + carRideEvent.eventType 
-                    + " status:" + carRideEvent.status
+        logger.info("key " + key + " car ride event " + carRideEvent.eventId
+                    + " type:" + carRideEvent.eventType 
                     + " ts: " + carRideEvent.timestampMillis);
 
 		eventProducer.send(Message.of(carRideEvent).addMetadata(OutgoingKafkaRecordMetadata.<String>builder()

@@ -1,20 +1,25 @@
 # Autonomous-car-ride manager microservice
 
-This project illustrates event sourcing and CQRS patterns implementation using Java and Quarkus, the "Supersonic Subatomic Java Framework".
+This project illustrates the event sourcing and CQRS patterns implementation using Java and Quarkus, the "Supersonic Subatomic Java Framework".
 
-it can run locally using Docker compose and being deployed on AWS EKS or ECS Fargate.
+* [Event sourcing](https://jbcodeforce.github.io/eda-studies/patterns/event-sourcing/) pattern is about persisting the state of business entity as a sequence of state-changing events as immutable facts ordered over time.
+* [Command-Query Responsibility Segregation (CQRS)](https://jbcodeforce.github.io/eda-studies/patterns/cqrs/) is a pattern to separate operations for querying data with operations for updating data so that they may be handled independently, in separate applications or microservices.
+
+This project in the implementation of the Command part of an autonomous robot taxi ride share. The code can run locally using Docker compose and being deployed on AWS EKS or ECS Fargate.
+
+The demonstration also illustrates the needs to represent the data in different formats: Data Transfer Object at the API level, Business Entity for the persistence, and Event definition to share change states. 
 
 ## What the app does
 
-Expose CRUD for CarRide and TripFare Entities with Postgresql as database. It supports also a control interface to create n records randomly (this is a command to be used for demonstration purpose).
+This microservice exposes CRUD operations for CarRide and TripFare Entities with Postgresql as database. 
 
 ## Development time
 
-The following notes if for development activities
+The following notes if for development activities:
 
 ### Running the application in dev mode
 
-* First start Postgresql locally with `docker compose up -d`
+* First start Postgresql and Kafka locally with `docker compose up -d`
 * Run the application in dev mode:
 
 ```shell script

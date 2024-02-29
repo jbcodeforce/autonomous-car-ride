@@ -20,6 +20,13 @@ import jakarta.persistence.SequenceGenerator;
  */
 @Entity
 public class CarRide extends PanacheEntityBase {
+    public static final String TRIP_STATUS_ORDERED = "ORDERED";
+    public static final String TRIP_STATUS_COMPLETED = "COMPLETED";
+    public static final String TRIP_STATUS_IN_PROGRESS = "IN_PROGRESS";
+    public static final String TRIP_STATUS_CANCELLED = "CANCELLED";
+    public static final String TRIP_STATUS_UNKNOWN = "UNKNOWN";
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trip_seq")
     @SequenceGenerator(name = "trip_seq", sequenceName = "trip_sequence")

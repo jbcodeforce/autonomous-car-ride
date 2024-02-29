@@ -5,6 +5,7 @@ import java.util.List;
 import acme.acr.api.dto.Control;
 import acme.acr.domain.CarRide;
 import acme.acr.infra.CarRideRepository;
+import acme.acr.infra.events.CarRideEventProducer;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -24,8 +25,12 @@ import jakarta.ws.rs.core.Response;
 @Consumes(MediaType.APPLICATION_JSON)
 @ApplicationScoped
 public class CarRideResource {
+
     @Inject
     CarRideRepository repository;
+
+    @Inject
+    CarRideEventProducer eventProducer;
 
     @GET
     @Path("/{id}")
@@ -40,7 +45,9 @@ public class CarRideResource {
 
     @POST
     public Response createNewRide(CarRide aNewRide) {
+        aNewRide.tripStatus=CarRide.TRIP_STATUS_ORDERED;
         aNewRide = repository.createNewRide(aNewRide);
+        eventProducer.sendCarRideCreatedEventFrom(aNewRide);
         return Response.ok(aNewRide).build();
     }
 
